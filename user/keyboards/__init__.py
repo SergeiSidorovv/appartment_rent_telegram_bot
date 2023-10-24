@@ -1,1 +1,1 @@
-from keyboards import main_menu_kb
+from user.keyboards import main_menu_kb

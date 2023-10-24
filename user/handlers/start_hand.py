@@ -4,6 +4,7 @@ from aiogram import Dispatcher
 from create_bot import dp, bot
 from user.handlers.main_menu_hand import main_menu
 
+
 async def start(message: Message):
     if message.values['chat']['type'] == 'private':
         await bot.send_message(
@@ -13,6 +14,7 @@ async def start(message: Message):
         await main_menu(message)
     else:
         await message.answer("Общение с ботом происходит через личные сообщения!\n https://t.me/RentAppartmentTelegrammBot")
+
 
 async def help(message: Message):
     if message.values['chat']['type'] == 'private':
