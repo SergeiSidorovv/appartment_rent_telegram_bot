@@ -1,5 +1,3 @@
-
-
 async def view_citys(dict_citys: dict) -> str:
     str_all_citys = "Доступные города"
     str_all_citys += "\n"

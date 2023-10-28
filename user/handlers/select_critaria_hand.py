@@ -1,8 +1,8 @@
+import logging
 from aiogram.dispatcher.filters.state import State, StatesGroup
 from aiogram.types import Message
 from aiogram.dispatcher import FSMContext, Dispatcher
 from aiogram.dispatcher.filters import Text
-import logging
 
 from create_bot import bot, dp
 from user.criteria.criteria import get_citys, get_count_rooms, get_types_rent, get_filters
