@@ -7,6 +7,7 @@ from aiogram.dispatcher.filters import Text
 from create_bot import bot, dp
 from user.criteria.criteria import get_citys, get_count_rooms, get_types_rent, get_filters
 from user.criteria.view_criteria import view_citys, view_count_rooms, view_filters
+from user.handlers import check_data_hand
 
 
 class SelectCriteria(StatesGroup):
@@ -40,7 +41,7 @@ async def select_city(message: Message, state: FSMContext):
     async with state.proxy() as data_criteria:
         citys = get_citys()
         if message.text.lower() in citys.keys():
-            data_criteria['city'] = message.text.lower()
+            data_criteria['city'] = citys[message.text.lower()]
 
             await SelectCriteria.next()
             await bot.send_message(chat_id=message.from_user.id, text=f"{await view_count_rooms(get_count_rooms())}")
@@ -54,7 +55,7 @@ async def select_count_rooms(message: Message, state: FSMContext):
     async with state.proxy() as data_criteria:
         count_rooms = get_count_rooms()
         if message.text.lower() in count_rooms.keys():
-            data_criteria['count_rooms'] = message.text.lower()
+            data_criteria['count_rooms'] = count_rooms[message.text.lower()]
 
             await SelectCriteria.next()
             await bot.send_message(chat_id=message.from_user.id, text="Теперь напишите тип аредны: 'Посуточно' или 'На длительный срок'")
@@ -67,7 +68,7 @@ async def select_types_rent(message: Message, state: FSMContext):
     async with state.proxy() as data_criteria:
         types_rent = get_types_rent()
         if message.text.lower() in types_rent.keys():
-            data_criteria['type_rent'] = message.text.lower()
+            data_criteria['type_rent'] = types_rent[message.text.lower()]
 
             await SelectCriteria.next()
             await bot.send_message(chat_id=message.from_user.id, text=f"{await view_filters(get_filters())}")
@@ -81,9 +82,8 @@ async def select_filter_output(message: Message, state: FSMContext):
     async with state.proxy() as data_criteria:
         filters_output = get_filters()
         if message.text.lower() in filters_output.keys():
-            data_criteria['filter'] = message.text.lower()
-
-            await bot.send_message(chat_id=message.from_user.id, text=data_criteria)
+            data_criteria['filter'] = filters_output[message.text.lower()]
+            await check_data_hand.check_availability_data(message, data_criteria)
             await state.finish()
         else:
             await bot.send_message(chat_id=message.from_user.id,

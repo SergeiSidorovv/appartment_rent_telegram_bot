@@ -1,6 +1,6 @@
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, Integer, String, ForeignKey
 
-from db.db import Base
+from db.db import Base, create_all
 
 
 class Registration(Base):
