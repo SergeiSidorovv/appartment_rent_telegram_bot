@@ -2,7 +2,6 @@ from aiogram.types import Message
 from aiogram import Dispatcher
 
 from create_bot import dp, bot
-from user.handlers import main_menu_hand
 from user.handlers import registration_hand
 
 

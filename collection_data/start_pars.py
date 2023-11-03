@@ -1,9 +1,8 @@
 from aiogram.dispatcher import FSMContext
 from selenium import webdriver
+import time
 
-from collection_data import url_page
-from collection_data import options_param
-from collection_data import find_elements
+from collection_data import url_page, options_param, find_elements, timeout
 
 
 async def collection_data(data_criteria: FSMContext) -> dict:
@@ -17,7 +16,7 @@ async def collection_data(data_criteria: FSMContext) -> dict:
         while process:
             driver = webdriver.Chrome(options=options_param.get_options())
             driver.get(url)
-
+            timeout.wait_download_start_page(driver)
             list_appartments = find_elements.get_all_appartments_on_page(
                 driver)
             if len(list_appartments) == 0:
@@ -34,6 +33,7 @@ async def collection_data(data_criteria: FSMContext) -> dict:
                 apartment_data['url'] = url_appartments
                 apartment_data['info'] = info_appartments
                 apartment_data['price'] = price_appartments
+
                 number_page += 1
 
                 driver.close()
