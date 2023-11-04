@@ -3,7 +3,7 @@ from aiogram import Dispatcher
 from aiogram.dispatcher.filters import Text
 
 from create_bot import dp, bot
-from user.keyboards.main_menu_kb import menu_kb
+from user.keyboards.user_kb import menu_kb
 
 
 async def main_menu(message: Message):

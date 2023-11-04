@@ -19,6 +19,13 @@ def get_appartment(person_id: int):
     yield None
 
 
+def get_user_id():
+    with Session(autoflush=False, bind=engine) as session:
+        users_id = session.query(Appartments.user_id).all()
+        users_id = [i[0] for i in users_id]
+    return users_id
+
+
 def get_users_telegram_id():
     with Session(autoflush=False, bind=engine) as session:
         users_telegram_id = session.query(Registration.user_telegram_id).all()

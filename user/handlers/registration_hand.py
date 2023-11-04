@@ -56,7 +56,7 @@ async def add_nick_name(message: Message, state: FSMContext):
 
 async def check_registration(message: Message):
     registered_users = get_data.get_users_telegram_id()
-    if str(message.from_user.id) not in registered_users:
+    if message.from_user.id not in registered_users:
         await start_registration(message)
     else:
         await bot.send_message(message.from_user.id, "Вы уже зарегистрированы!")
