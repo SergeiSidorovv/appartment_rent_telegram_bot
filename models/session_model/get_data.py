@@ -8,12 +8,12 @@ from models.registration import Registration
 def get_appartment(person_id: int):
     with Session(autoflush=False, bind=engine) as session:
         appartments = session.query(
-            Appartments).filter_by(user_id=str(person_id))
+            Appartments).filter(Appartments.user_id == str(person_id), Appartments.info != '').all()
         for i in appartments:
             advertisement = {}
-            advertisement['url'] = i[1]
-            advertisement['info'] = i[2]
-            advertisement['price'] = i[3]
+            advertisement['url'] = i.url
+            advertisement['info'] = i.info
+            advertisement['price'] = i.price
 
             yield advertisement
     yield None

@@ -11,6 +11,3 @@ class Appartments(Base):
     url = Column(String(), nullable=False)
     info = Column(String(), nullable=False)
     price = Column(String(), nullable=False)
-
-
-create_all()

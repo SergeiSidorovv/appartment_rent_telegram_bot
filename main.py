@@ -14,7 +14,7 @@ async def on_start(_):
     start_hand.register_handlers_start_help(dp)
     main_menu_hand.register_handlers_main_menu(dp)
     select_critaria_hand.register_handler_select_criteria(dp)
-    # view_appartments_hand.register_handler_view_appartment(dp)
+    view_appartments_hand.register_handler_view(dp)
     registration_hand.register_handlers_registration(dp)
 
 

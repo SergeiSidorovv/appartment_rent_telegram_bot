@@ -1,1 +1,1 @@
-from user.keyboards import user_kb
+from . import user_kb

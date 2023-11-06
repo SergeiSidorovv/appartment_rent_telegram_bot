@@ -2,14 +2,21 @@ from aiogram.types import Message
 from aiogram.dispatcher import FSMContext
 
 from create_bot import bot, dp
+from models.session_model import update_data
+from models.session_model import get_data
 from user.keyboards import user_kb
-from db import add_data, get_data, update_data
+from models.session_model import add_data
 from collection_data import start_pars
 
 
+async def gen_search_appartment_data(data_criteria: FSMContext):
+    global gen_search_appartment
+    gen_search_appartment = start_pars.collection_data(data_criteria)
+
+
 async def check_availability_data(message: Message, data_criteria: FSMContext):
-    appartments = start_pars.collection_data(data_criteria)
-    gen_appartments = await anext(appartments)
+    await gen_search_appartment_data(data_criteria)
+    gen_appartments = await anext(gen_search_appartment)
 
     if len(gen_appartments.keys()) == 0:
         await bot.send_message(chat_id=message.chat.id,

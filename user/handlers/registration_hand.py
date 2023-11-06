@@ -5,8 +5,9 @@ from aiogram.dispatcher import FSMContext, Dispatcher
 from aiogram.dispatcher.filters import Text
 
 from create_bot import dp, bot
+from models.session_model import get_data
 from user.handlers import main_menu_hand
-from db import add_data, get_data
+from models.session_model import add_data
 
 
 class RegistrationUser(StatesGroup):
