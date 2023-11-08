@@ -16,9 +16,11 @@ async def gen_search_appartment_data(data_criteria: FSMContext):
 
 async def check_availability_data(message: Message, data_criteria: FSMContext):
     await gen_search_appartment_data(data_criteria)
-    gen_appartments = await anext(gen_search_appartment)
 
-    if len(gen_appartments.keys()) == 0:
+    gen_appartments = await anext(gen_search_appartment)
+    count_appartments = len(gen_appartments.keys())
+
+    if count_appartments == 0:
         await bot.send_message(chat_id=message.chat.id,
                                text='К сожалению по вашим критериям я ничего не смог найти!\n Попробуйте ввести другие критерии нажав на кнопку "Начать поиск".',
                                reply_markup=user_kb.menu_kb())
