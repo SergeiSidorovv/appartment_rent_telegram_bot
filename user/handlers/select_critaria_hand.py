@@ -4,10 +4,10 @@ from aiogram.types import Message
 from aiogram.dispatcher import FSMContext, Dispatcher
 from aiogram.dispatcher.filters import Text
 
-from create_bot import bot, dp
 from user.criteria.criteria import get_citys, get_count_rooms, get_types_rent, get_filters
 from user.criteria.view_criteria import view_citys, view_count_rooms, view_filters
 from user.handlers import check_data_hand
+from create_bot import bot, dp
 
 
 class SelectCriteria(StatesGroup):

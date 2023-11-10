@@ -1,3 +1,3 @@
-from . import add_data
-from . import get_data
-from . import update_data
+from . import appartment_session
+from . import favourite_session
+from . import registration_session

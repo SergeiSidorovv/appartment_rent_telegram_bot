@@ -4,10 +4,9 @@ from aiogram.types import Message
 from aiogram.dispatcher import FSMContext, Dispatcher
 from aiogram.dispatcher.filters import Text
 
-from create_bot import dp, bot
-from models.session_model import get_data
+from models.session_model import registration_session
 from user.handlers import main_menu_hand
-from models.session_model import add_data
+from create_bot import dp, bot
 
 
 class RegistrationUser(StatesGroup):
@@ -47,7 +46,7 @@ async def add_nick_name(message: Message, state: FSMContext):
     async with state.proxy() as reg_data:
         if len(message.text) <= nick_name_length and "@" not in message.text and "/" not in message.text:
             reg_data['nick_name'] = message.text
-            add_data.add_user(reg_data)
+            registration_session.add_user(reg_data)
             await state.finish()
             await main_menu_hand.main_menu(message)
         else:
@@ -56,7 +55,8 @@ async def add_nick_name(message: Message, state: FSMContext):
 
 
 async def check_registration(message: Message):
-    registered_users = get_data.get_users_telegram_id()
+    registered_users = registration_session.get_users_telegram_id()
+
     if message.from_user.id not in registered_users:
         await start_registration(message)
     else:

@@ -3,14 +3,15 @@ from aiogram.dispatcher import FSMContext, Dispatcher
 from aiogram.dispatcher.filters import Text
 
 from create_bot import bot, dp
-from models.session_model import get_data
+from models.session_model import appartment_session
 from user.keyboards import inline_kb
 from user.handlers import check_data_hand, favourites_hand
 
 
 async def gen_view_appartment_data(message: Message):
     global gen_veiw_appartment
-    gen_veiw_appartment = get_data.get_appartment(message.from_user.id)
+    gen_veiw_appartment = appartment_session.get_appartment(
+        message.from_user.id)
 
 
 async def view_appartment(message: Message):

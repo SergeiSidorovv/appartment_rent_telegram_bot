@@ -11,6 +11,3 @@ class Favourites(Base):
     url = Column(VARCHAR(), nullable=False)
     info = Column(VARCHAR(), nullable=False)
     price = Column(VARCHAR(), nullable=False)
-
-
-create_all()
