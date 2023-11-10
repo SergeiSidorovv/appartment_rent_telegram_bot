@@ -12,3 +12,13 @@ def show_action() -> InlineKeyboardMarkup:
     inlkb.add(button_like, button_next_appartment)
 
     return inlkb
+
+
+def delete_favourites() -> InlineKeyboardMarkup:
+    inlkb = InlineKeyboardMarkup(row_width=1)
+    button_delete = InlineKeyboardButton(
+        text='Удалить❌', callback_data='delete')
+
+    inlkb.add(button_delete)
+
+    return inlkb

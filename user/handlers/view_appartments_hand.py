@@ -5,6 +5,7 @@ from aiogram.dispatcher.filters import Text
 from create_bot import bot, dp
 from models.session_model import get_data
 from user.keyboards import inline_kb
+from user.handlers import check_data_hand, favourites_hand
 
 
 async def gen_view_appartment_data(message: Message):
@@ -23,14 +24,19 @@ async def view_appartment(message: Message):
 
 
 async def view_next_appartment(message: Message):
-    appartment = next(gen_veiw_appartment)
-    availability_app = appartment['info']
-    if availability_app is not None:
-        await bot.send_message(chat_id=message.from_user.id,
+    try:
+        appartment = next(gen_veiw_appartment)
+        await bot.send_message(chat_id=message.chat.id,
                                text=f"🏡{appartment['info']}\
                                 \n💰{appartment['price']}\
                                 \n💻{appartment['url']}",
                                reply_markup=inline_kb.show_action())
+    except:
+        await bot.send_message(chat_id=message.chat.id,
+                               text="Собираем ещё данные по вашему запросу.\n\
+                                    Пожалуйста подождите!",
+                               )
+        await check_data_hand.check_next_page_availability_data(message.chat.id)
 
 
 async def callback_appartment(callback: CallbackQuery):
@@ -40,10 +46,17 @@ async def callback_appartment(callback: CallbackQuery):
         await callback.answer(cache_time=True)
 
     elif button_click == 'add_favourites':
-        pass
+        check_message = await favourites_hand.add_favourites(message=callback.message)
+        await callback.answer(check_message)
+        await callback.answer(cache_time=True)
+
+    elif button_click == 'delete':
+        await favourites_hand.delete_favourites(message=callback.message)
+        await callback.answer('Удалено из избранного')
+        await callback.answer(cache_time=True)
 
 
 def register_handler_view(dp: Dispatcher):
     dp.register_message_handler(view_appartment, Text(
         equals='Показать🏡', ignore_case=True))
-    dp.register_message_handler(view_next_appartment, Text())
+    dp.register_callback_query_handler(callback_appartment)

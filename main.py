@@ -8,6 +8,7 @@ from user.handlers import main_menu_hand
 from user.handlers import select_critaria_hand
 from user.handlers import registration_hand
 from user.handlers import view_appartments_hand
+from user.handlers import favourites_hand
 
 
 async def on_start(_):
@@ -15,6 +16,7 @@ async def on_start(_):
     main_menu_hand.register_handlers_main_menu(dp)
     select_critaria_hand.register_handler_select_criteria(dp)
     view_appartments_hand.register_handler_view(dp)
+    favourites_hand.register_handlers_favourites(dp)
     registration_hand.register_handlers_registration(dp)
 
 

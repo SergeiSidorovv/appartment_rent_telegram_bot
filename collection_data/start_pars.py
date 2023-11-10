@@ -38,6 +38,8 @@ async def collection_data(data_criteria: FSMContext) -> dict:
 
                 driver.close()
 
+                url = url_page.get_next_page(url, number_page)
+
                 yield apartment_data
 
     except Exception as ex:
